@@ -73,7 +73,12 @@ function diff-plugin-sync
     
     # Get all functions from plugin or specific function
     if set -q _flag_function
-        set plugin_functions $_flag_function
+        # Add .fish extension if not provided
+        if not string match -q "*.fish" $_flag_function
+            set plugin_functions "$_flag_function.fish" 
+        else
+            set plugin_functions $_flag_function
+        end
     else
         for func_file in $plugin_dir/functions/*.fish
             if test -f $func_file
@@ -166,7 +171,7 @@ function diff-plugin-sync
         
         echo ""
         echo "💡 To sync config → plugin:"
-        echo "   cp ~/.config/fish/functions/{$func_file} $plugin_dir/functions/"
+        echo "   cp ~/.config/fish/functions/<function>.fish $plugin_dir/functions/"
         echo ""
         echo "💡 To sync plugin → config:"
         echo "   fisher install $plugin_dir"
