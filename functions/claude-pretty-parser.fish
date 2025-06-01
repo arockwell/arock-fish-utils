@@ -119,7 +119,7 @@ function claude-pretty-parser
                 if test -n "$tool_result"
                     # Use the simple approach that works for file creation
                     echo "[$timestamp] 📄 Tool result:"
-                    echo "$tool_result"
+                    echo $line | jq -r '.message.content[]? | select(.type == "tool_result") | .content // ""'
                     echo "[$timestamp] ---"
                 end
                 
