@@ -2,7 +2,7 @@
 # This runs when Fish shell starts
 
 # 📌 Set plugin version
-set -g AROCK_FISH_UTILS_VERSION 1.0.0
+set -g AROCK_FISH_UTILS_VERSION 1.1.0
 
 # 🎨 Add any initialization code here
 # Examples:
