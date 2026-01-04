@@ -5,7 +5,8 @@ Alex Rockwell's collection of Fish utilities for advanced Git workflow managemen
 ## ✨ Features
 
 ### Git Worktree Management
-- **`gw`** - Fast fuzzy search worktree switcher with create functionality
+- **`gw`** - Fast fuzzy search worktree switcher with **interactive preview** (status + commits)
+- **`gwp`** - Print worktree path by branch name (perfect for scripts and aliases)
 - **`git-worktree-status`** - Quick one-line status for all worktrees (emoji indicators)
 - **`git-worktree-cleanup`** - Analyze and clean up old/merged worktrees (interactive mode available)
 - **`git-pr-checkout`** - Quickly checkout GitHub PRs as worktrees for easy review
@@ -17,12 +18,12 @@ Alex Rockwell's collection of Fish utilities for advanced Git workflow managemen
 - **`git-repo-health`** - Comprehensive repository health dashboard (disk usage, branches, worktrees, unpushed commits)
 - **`git-sync-all`** - Sync all worktrees with remote branches
 - **`git-cleanup-all`** - Run all cleanup utilities in one command
+- **`git-dashboard`** - **NEW!** Interactive TUI dashboard for all git workflow operations
 
-### Tab Completions
-All utilities include Fish shell tab completions for:
-- Branch names (for `gw`)
-- PR numbers (for `git-pr-checkout`)
-- Command options and flags
+### Productivity Features
+- **Fish abbreviations** - Quick shortcuts (`gws`, `gca`, `gpc`, `gd`, etc.)
+- **Tab completions** - Branch names, PR numbers, and all command flags
+- **Script-friendly** - `gwp` for path resolution in scripts and aliases
 
 ## 📦 Installation
 
@@ -63,16 +64,35 @@ Add startup configuration in \`conf.d/arock-fish-utils.fish\`
 
 ## 📖 Usage Examples
 
-### Quick Worktree Switching
+### Interactive Dashboard (NEW!)
 ```fish
-gw                    # Fuzzy search and switch to a worktree
+git-dashboard        # Launch interactive TUI dashboard
+gd                   # Abbreviation for git-dashboard
+```
+
+### Enhanced Worktree Switching
+```fish
+gw                   # Fuzzy search with preview (status + commits)
 gw feature           # Search with initial query
+gwp feature          # Print path to feature worktree
+cd $(gwp main)       # Navigate to main worktree
+code $(gwp pr-123)   # Open worktree in VS Code
 ```
 
 ### PR Review Workflow
 ```fish
 git-pr-checkout      # List and select a PR
 git-pr-checkout 123  # Checkout PR #123 as worktree
+gpc 123              # Abbreviation
+```
+
+### Quick Abbreviations
+```fish
+gws                  # git-worktree-status
+gsa                  # git-sync-all
+gca                  # git-cleanup-all
+grh                  # git-repo-health
+gd                   # git-dashboard
 ```
 
 ### Repository Maintenance

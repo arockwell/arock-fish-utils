@@ -35,12 +35,57 @@ function gw --description "Switch to git worktree (or create new one)"
     # Add create option
     set -a formatted_list "+ Create new worktree"
 
-    # Use fzf to select
+    # Create preview script for fzf
+    set -l preview_script "
+        if echo {} | grep -q '+ Create'; then
+            echo '📝 Create a new worktree'
+            echo ''
+            echo 'Enter branch name when prompted'
+        else
+            path=\$(echo {} | sed 's/.* → //')
+            branch=\$(echo {} | sed 's/ →.*//')
+            if test -d \"\$path\"; then
+                echo \"📂 \$path\"
+                echo \"🌿 \$branch\"
+                echo \"\"
+                echo \"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\"
+                echo \"📊 Status:\"
+                git -C \"\$path\" status --short 2>/dev/null || echo \"No changes\"
+                echo \"\"
+                echo \"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\"
+                echo \"📝 Recent commits:\"
+                git -C \"\$path\" log --oneline --color=always -5 2>/dev/null || echo \"No commits\"
+            else
+                echo \"⚠️  Worktree path not found\"
+            fi
+        fi
+    "
+
+    # Use fzf to select with preview
     set -l selected
     if test -n "$query"
-        set selected (printf "%s\n" $formatted_list | fzf --height=40% --reverse --query="$query" --select-1 --exit-0)
+        set selected (printf "%s\n" $formatted_list | fzf \
+            --height=80% \
+            --reverse \
+            --query="$query" \
+            --select-1 \
+            --exit-0 \
+            --preview="fish -c '$preview_script'" \
+            --preview-window=right:50%:wrap \
+            --border \
+            --prompt="Worktree> " \
+            --header="TAB: toggle preview | ENTER: switch" \
+            --bind="ctrl-/:toggle-preview")
     else
-        set selected (printf "%s\n" $formatted_list | fzf --height=40% --reverse)
+        set selected (printf "%s\n" $formatted_list | fzf \
+            --height=80% \
+            --reverse \
+            --preview="fish -c '$preview_script'" \
+            --preview-window=right:50%:wrap \
+            --border \
+            --prompt="Worktree> " \
+            --header="TAB: toggle preview | ENTER: switch" \
+            --bind="ctrl-/:toggle-preview")
     end
 
     # Check if user cancelled
