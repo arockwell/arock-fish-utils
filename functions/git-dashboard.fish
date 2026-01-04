@@ -41,7 +41,7 @@ function git-dashboard --description "Interactive dashboard for git workflow man
                 echo "  • Worktree status and uncommitted work"
                 echo "  • Unpushed commits"
                 echo "  • Cleanup recommendations"
-            else if echo {} | grep -q "Sync All"; then
+            elif echo {} | grep -q "Sync All"; then
                 echo "🔄 Sync All Worktrees"
                 echo ""
                 echo "Syncs all worktrees with remote:"
@@ -49,7 +49,7 @@ function git-dashboard --description "Interactive dashboard for git workflow man
                 echo "  • Shows sync status for each worktree"
                 echo "  • Auto-pulls clean worktrees"
                 echo "  • Reports issues (dirty, diverged)"
-            else if echo {} | grep -q "Worktree Status"; then
+            elif echo {} | grep -q "Worktree Status"; then
                 echo "📝 Worktree Status"
                 echo ""
                 echo "Quick one-line status for all worktrees:"
@@ -58,7 +58,7 @@ function git-dashboard --description "Interactive dashboard for git workflow man
                 echo "  📤 Unpushed commits"
                 echo "  📥 Behind remote"
                 echo "  ⚠️  Diverged from remote"
-            else if echo {} | grep -q "Switch Worktree"; then
+            elif echo {} | grep -q "Switch Worktree"; then
                 echo "🔧 Switch Worktree (gw)"
                 echo ""
                 echo "Fuzzy search and switch worktrees:"
@@ -66,7 +66,7 @@ function git-dashboard --description "Interactive dashboard for git workflow man
                 echo "  • Shows recent commits"
                 echo "  • Create new worktrees"
                 echo "  • Tab completion support"
-            else if echo {} | grep -q "Checkout PR"; then
+            elif echo {} | grep -q "Checkout PR"; then
                 echo "📥 Checkout PR"
                 echo ""
                 echo "Checkout GitHub PRs as worktrees:"
@@ -74,7 +74,7 @@ function git-dashboard --description "Interactive dashboard for git workflow man
                 echo "  • Create worktree for review"
                 echo "  • Automatic PR fetching"
                 echo "  • Quick PR testing workflow"
-            else if echo {} | grep -q "Cleanup Worktrees"; then
+            elif echo {} | grep -q "Cleanup Worktrees"; then
                 echo "🗑️  Cleanup Worktrees"
                 echo ""
                 echo "Clean up old/merged worktrees:"
@@ -82,7 +82,7 @@ function git-dashboard --description "Interactive dashboard for git workflow man
                 echo "  • Auto-delete merged worktrees"
                 echo "  • Show PR context"
                 echo "  • Safe cleanup recommendations"
-            else if echo {} | grep -q "Cleanup Branches"; then
+            elif echo {} | grep -q "Cleanup Branches"; then
                 echo "🌿 Cleanup Branches"
                 echo ""
                 echo "Clean up local branches:"
@@ -90,7 +90,7 @@ function git-dashboard --description "Interactive dashboard for git workflow man
                 echo "  • Interactive review"
                 echo "  • Create worktrees for orphaned branches"
                 echo "  • Safe deletion of merged branches"
-            else if echo {} | grep -q "Full Cleanup"; then
+            elif echo {} | grep -q "Full Cleanup"; then
                 echo "🧹 Full Cleanup"
                 echo ""
                 echo "Complete repository cleanup:"
@@ -99,11 +99,11 @@ function git-dashboard --description "Interactive dashboard for git workflow man
                 echo "  3. Clean up branches"
                 echo "  4. Prune broken references"
                 echo "  5. Show health status"
-            else if echo {} | grep -q "Exit"; then
+            elif echo {} | grep -q "Exit"; then
                 echo "❌ Exit Dashboard"
                 echo ""
                 echo "Close the dashboard and return to shell"
-            fi
+            end
         '
 
         # Show menu with preview
