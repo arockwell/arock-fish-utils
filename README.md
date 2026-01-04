@@ -1,6 +1,21 @@
 # 🐟 arock-fish-utils
 
-Alex Rockwell's collection of Fish utilities
+Alex Rockwell's collection of Fish utilities for advanced Git workflow management.
+
+## ✨ Features
+
+### Git Worktree Management
+- **`gw`** - Fast fuzzy search worktree switcher with create functionality
+- **`git-worktree-cleanup`** - Analyze and clean up old/merged worktrees (interactive mode available)
+- **`git-pr-checkout`** - Quickly checkout GitHub PRs as worktrees for easy review
+
+### Git Branch Management
+- **`git-branch-cleanup`** - Clean up local branches (merged, orphaned, no remote)
+
+### Repository Health & Sync
+- **`git-repo-health`** - Comprehensive repository health dashboard (disk usage, branches, worktrees, unpushed commits)
+- **`git-sync-all`** - Sync all worktrees with remote branches
+- **`git-cleanup-all`** - Run all cleanup utilities in one command
 
 ## 📦 Installation
 
@@ -38,6 +53,34 @@ complete -c my-function -s h -l help -d "Show help"
 
 ### Configuration
 Add startup configuration in \`conf.d/arock-fish-utils.fish\`
+
+## 📖 Usage Examples
+
+### Quick Worktree Switching
+```fish
+gw                    # Fuzzy search and switch to a worktree
+gw feature           # Search with initial query
+```
+
+### PR Review Workflow
+```fish
+git-pr-checkout      # List and select a PR
+git-pr-checkout 123  # Checkout PR #123 as worktree
+```
+
+### Repository Maintenance
+```fish
+git-sync-all                    # Sync all worktrees with remote
+git-cleanup-all                 # Full cleanup (interactive)
+git-cleanup-all --yes           # Auto-delete merged items
+git-repo-health                 # View repository health dashboard
+```
+
+### Interactive Cleanup
+```fish
+git-worktree-cleanup --interactive    # Review worktrees one by one
+git-branch-cleanup --interactive      # Review branches one by one
+```
 
 ## 🤝 Contributing
 
