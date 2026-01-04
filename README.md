@@ -6,6 +6,7 @@ Alex Rockwell's collection of Fish utilities for advanced Git workflow managemen
 
 ### Git Worktree Management
 - **`gw`** - Fast fuzzy search worktree switcher with create functionality
+- **`git-worktree-status`** - Quick one-line status for all worktrees (emoji indicators)
 - **`git-worktree-cleanup`** - Analyze and clean up old/merged worktrees (interactive mode available)
 - **`git-pr-checkout`** - Quickly checkout GitHub PRs as worktrees for easy review
 
@@ -16,6 +17,12 @@ Alex Rockwell's collection of Fish utilities for advanced Git workflow managemen
 - **`git-repo-health`** - Comprehensive repository health dashboard (disk usage, branches, worktrees, unpushed commits)
 - **`git-sync-all`** - Sync all worktrees with remote branches
 - **`git-cleanup-all`** - Run all cleanup utilities in one command
+
+### Tab Completions
+All utilities include Fish shell tab completions for:
+- Branch names (for `gw`)
+- PR numbers (for `git-pr-checkout`)
+- Command options and flags
 
 ## 📦 Installation
 
@@ -70,6 +77,10 @@ git-pr-checkout 123  # Checkout PR #123 as worktree
 
 ### Repository Maintenance
 ```fish
+git-worktree-status             # Quick status overview (emoji indicators)
+git-worktree-status --all       # Show all worktrees including clean ones
+git-worktree-status --compact   # Ultra-compact emoji-only mode
+
 git-sync-all                    # Sync all worktrees with remote
 git-cleanup-all                 # Full cleanup (interactive)
 git-cleanup-all --yes           # Auto-delete merged items
