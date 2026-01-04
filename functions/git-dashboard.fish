@@ -38,7 +38,7 @@ function git-dashboard --description "Interactive dashboard for git workflow man
             --height=100% \
             --reverse \
             --ansi \
-            --preview="$preview_script" \
+            --preview="sh -c '$preview_script'" \
             --preview-window=right:50%:wrap \
             --border \
             --prompt="Git Dashboard> " \
