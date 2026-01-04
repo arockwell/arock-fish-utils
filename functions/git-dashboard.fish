@@ -30,88 +30,15 @@ function git-dashboard --description "Interactive dashboard for git workflow man
         set -a menu_items "🧹 Full Cleanup                  Run all cleanup utilities"
         set -a menu_items "❌ Exit                          Close dashboard"
 
-        # Create preview for each menu item
-        set -l preview_script '
-            if echo {} | grep -q "Repository Health"; then
-                echo "📊 Repository Health Dashboard"
-                echo ""
-                echo "Shows comprehensive repository information:"
-                echo "  • Disk usage (repo, worktrees, .git)"
-                echo "  • Branch statistics and stale branches"
-                echo "  • Worktree status and uncommitted work"
-                echo "  • Unpushed commits"
-                echo "  • Cleanup recommendations"
-            elif echo {} | grep -q "Sync All"; then
-                echo "🔄 Sync All Worktrees"
-                echo ""
-                echo "Syncs all worktrees with remote:"
-                echo "  • Fetches all remotes"
-                echo "  • Shows sync status for each worktree"
-                echo "  • Auto-pulls clean worktrees"
-                echo "  • Reports issues (dirty, diverged)"
-            elif echo {} | grep -q "Worktree Status"; then
-                echo "📝 Worktree Status"
-                echo ""
-                echo "Quick one-line status for all worktrees:"
-                echo "  ✅ Clean and up-to-date"
-                echo "  📝 Uncommitted changes"
-                echo "  📤 Unpushed commits"
-                echo "  📥 Behind remote"
-                echo "  ⚠️  Diverged from remote"
-            elif echo {} | grep -q "Switch Worktree"; then
-                echo "🔧 Switch Worktree (gw)"
-                echo ""
-                echo "Fuzzy search and switch worktrees:"
-                echo "  • Interactive preview with status"
-                echo "  • Shows recent commits"
-                echo "  • Create new worktrees"
-                echo "  • Tab completion support"
-            elif echo {} | grep -q "Checkout PR"; then
-                echo "📥 Checkout PR"
-                echo ""
-                echo "Checkout GitHub PRs as worktrees:"
-                echo "  • List open PRs"
-                echo "  • Create worktree for review"
-                echo "  • Automatic PR fetching"
-                echo "  • Quick PR testing workflow"
-            elif echo {} | grep -q "Cleanup Worktrees"; then
-                echo "🗑️  Cleanup Worktrees"
-                echo ""
-                echo "Clean up old/merged worktrees:"
-                echo "  • Interactive review mode"
-                echo "  • Auto-delete merged worktrees"
-                echo "  • Show PR context"
-                echo "  • Safe cleanup recommendations"
-            elif echo {} | grep -q "Cleanup Branches"; then
-                echo "🌿 Cleanup Branches"
-                echo ""
-                echo "Clean up local branches:"
-                echo "  • Show merged/orphaned branches"
-                echo "  • Interactive review"
-                echo "  • Create worktrees for orphaned branches"
-                echo "  • Safe deletion of merged branches"
-            elif echo {} | grep -q "Full Cleanup"; then
-                echo "🧹 Full Cleanup"
-                echo ""
-                echo "Complete repository cleanup:"
-                echo "  1. Sync all worktrees"
-                echo "  2. Clean up worktrees"
-                echo "  3. Clean up branches"
-                echo "  4. Prune broken references"
-                echo "  5. Show health status"
-            elif echo {} | grep -q "Exit"; then
-                echo "❌ Exit Dashboard"
-                echo ""
-                echo "Close the dashboard and return to shell"
-            end
-        '
+        # Create preview for each menu item (using sh syntax for fzf compatibility)
+        set -l preview_script 'if echo {} | grep -q "Repository Health"; then echo "📊 Repository Health Dashboard"; echo ""; echo "Shows comprehensive repository information:"; echo "  • Disk usage (repo, worktrees, .git)"; echo "  • Branch statistics and stale branches"; echo "  • Worktree status and uncommitted work"; echo "  • Unpushed commits"; echo "  • Cleanup recommendations"; elif echo {} | grep -q "Sync All"; then echo "🔄 Sync All Worktrees"; echo ""; echo "Syncs all worktrees with remote:"; echo "  • Fetches all remotes"; echo "  • Shows sync status for each worktree"; echo "  • Auto-pulls clean worktrees"; echo "  • Reports issues (dirty, diverged)"; elif echo {} | grep -q "Worktree Status"; then echo "📝 Worktree Status"; echo ""; echo "Quick one-line status for all worktrees:"; echo "  ✅ Clean and up-to-date"; echo "  📝 Uncommitted changes"; echo "  📤 Unpushed commits"; echo "  📥 Behind remote"; echo "  ⚠️  Diverged from remote"; elif echo {} | grep -q "Switch Worktree"; then echo "🔧 Switch Worktree (gw)"; echo ""; echo "Fuzzy search and switch worktrees:"; echo "  • Interactive preview with status"; echo "  • Shows recent commits"; echo "  • Create new worktrees"; echo "  • Tab completion support"; elif echo {} | grep -q "Checkout PR"; then echo "📥 Checkout PR"; echo ""; echo "Checkout GitHub PRs as worktrees:"; echo "  • List open PRs"; echo "  • Create worktree for review"; echo "  • Automatic PR fetching"; echo "  • Quick PR testing workflow"; elif echo {} | grep -q "Cleanup Worktrees"; then echo "🗑️  Cleanup Worktrees"; echo ""; echo "Clean up old/merged worktrees:"; echo "  • Interactive review mode"; echo "  • Auto-delete merged worktrees"; echo "  • Show PR context"; echo "  • Safe cleanup recommendations"; elif echo {} | grep -q "Cleanup Branches"; then echo "🌿 Cleanup Branches"; echo ""; echo "Clean up local branches:"; echo "  • Show merged/orphaned branches"; echo "  • Interactive review"; echo "  • Create worktrees for orphaned branches"; echo "  • Safe deletion of merged branches"; elif echo {} | grep -q "Full Cleanup"; then echo "🧹 Full Cleanup"; echo ""; echo "Complete repository cleanup:"; echo "  1. Sync all worktrees"; echo "  2. Clean up worktrees"; echo "  3. Clean up branches"; echo "  4. Prune broken references"; echo "  5. Show health status"; elif echo {} | grep -q "Exit"; then echo "❌ Exit Dashboard"; echo ""; echo "Close the dashboard and return to shell"; fi'
 
         # Show menu with preview
         set -l selected (printf "%s\n" $menu_items | fzf \
             --height=100% \
             --reverse \
             --ansi \
-            --preview="fish -c '$preview_script'" \
+            --preview="$preview_script" \
             --preview-window=right:50%:wrap \
             --border \
             --prompt="Git Dashboard> " \
